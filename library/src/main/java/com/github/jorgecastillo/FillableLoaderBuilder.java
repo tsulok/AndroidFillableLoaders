@@ -33,6 +33,7 @@ public class FillableLoaderBuilder {
 
   private int strokeColor = -1;
   private int fillColor = -1;
+  private int backgroundFillColor = -1;
   private int strokeWidth = -1;
   private int originalWidth = -1;
   private int originalHeight = -1;
@@ -60,6 +61,11 @@ public class FillableLoaderBuilder {
 
   public FillableLoaderBuilder fillColor(int fillColor) {
     this.fillColor = fillColor;
+    return this;
+  }
+
+  public FillableLoaderBuilder backgroundFillColor(int backgroundFillColor) {
+    this.backgroundFillColor = backgroundFillColor;
     return this;
   }
 
@@ -107,6 +113,7 @@ public class FillableLoaderBuilder {
     Resources res = parent.getContext().getResources();
     strokeColor = strokeColor == -1 ? res.getColor(R.color.strokeColor) : strokeColor;
     fillColor = fillColor == -1 ? res.getColor(R.color.fillColor) : fillColor;
+    backgroundFillColor = backgroundFillColor == -1 ? res.getColor(R.color.backgroundFillColor) : backgroundFillColor;
     strokeWidth = strokeWidth < 0 ? res.getDimensionPixelSize(R.dimen.strokeWidth) : strokeWidth;
     strokeDrawingDuration =
         strokeDrawingDuration < 0 ? res.getInteger(R.integer.strokeDrawingDuration)
@@ -123,7 +130,7 @@ public class FillableLoaderBuilder {
       throwArgumentException("an svg path");
     }
 
-    return new FillableLoader(parent, params, strokeColor, fillColor, strokeWidth, originalWidth,
+    return new FillableLoader(parent, params, strokeColor, fillColor, backgroundFillColor, strokeWidth, originalWidth,
         originalHeight, strokeDrawingDuration, fillDuration, clippingTransform, svgPath,
         percentageEnabled, percentage);
   }

@@ -3,6 +3,8 @@
   <declare-styleable name="FillableLoader">
     <attr name="fl_fillColor"
         format="color"/>
+    <attr name="fl_backgroundFillColor"
+        format="color"/>
     <attr name="fl_strokeColor"
         format="color"/>
     <attr name="fl_strokeWidth"

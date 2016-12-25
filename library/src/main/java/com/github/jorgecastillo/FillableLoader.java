@@ -49,7 +49,7 @@ import java.text.ParseException;
  */
 public class FillableLoader extends View {
 
-  private int strokeColor, fillColor, strokeWidth;
+  private int strokeColor, fillColor, backgroundFillColor, strokeWidth;
   private int originalWidth, originalHeight;
   private int strokeDrawingDuration, fillDuration;
   private ClippingTransform clippingTransform;
@@ -58,6 +58,7 @@ public class FillableLoader extends View {
   private PathData pathData;
   private Paint dashPaint;
   private Paint fillPaint;
+  private Paint backgroundFillPaint;
   private int drawingState;
   private long initialTime;
 
@@ -91,7 +92,7 @@ public class FillableLoader extends View {
   /**
    * Constructor for the {@link FillableLoaderBuilder} class.
    */
-  FillableLoader(ViewGroup parent, ViewGroup.LayoutParams params, int strokeColor, int fillColor,
+  FillableLoader(ViewGroup parent, ViewGroup.LayoutParams params, int strokeColor, int fillColor, int backgroundFillColor,
       int strokeWidth, int originalWidth, int originalHeight, int strokeDrawingDuration,
       int fillDuration, ClippingTransform transform, String svgPath, boolean percentageEnabled,
       float fillPercentage) {
@@ -100,6 +101,7 @@ public class FillableLoader extends View {
 
     this.strokeColor = strokeColor;
     this.fillColor = fillColor;
+    this.backgroundFillColor = backgroundFillColor;
     this.strokeWidth = strokeWidth;
     this.strokeDrawingDuration = strokeDrawingDuration;
     this.fillDuration = fillDuration;
@@ -135,6 +137,7 @@ public class FillableLoader extends View {
     AttributeExtractorImpl.Builder extractorBuilder = new AttributeExtractorImpl.Builder();
     AttributeExtractorImpl extractor = extractorBuilder.with(getContext()).with(attrs).build();
     fillColor = extractor.getFillColor();
+    backgroundFillColor = extractor.getBackgroundFillColor();
     strokeColor = extractor.getStrokeColor();
     strokeWidth = extractor.getStrokeWidth();
     originalWidth = extractor.getOriginalWidth();
@@ -155,6 +158,7 @@ public class FillableLoader extends View {
 
     initDashPaint();
     initFillPaint();
+    initBackgroundFillPaint();
 
     animInterpolator = new DecelerateInterpolator();
     setLayerType(LAYER_TYPE_SOFTWARE, null);
@@ -173,6 +177,13 @@ public class FillableLoader extends View {
     fillPaint.setAntiAlias(true);
     fillPaint.setStyle(Paint.Style.FILL);
     fillPaint.setColor(fillColor);
+  }
+
+  private void initBackgroundFillPaint() {
+    backgroundFillPaint = new Paint();
+    backgroundFillPaint.setAntiAlias(true);
+    backgroundFillPaint.setStyle(Paint.Style.FILL);
+    backgroundFillPaint.setColor(backgroundFillColor);
   }
 
   public void start() {
@@ -242,6 +253,9 @@ public class FillableLoader extends View {
       } else {
         fillPhase = getFillPhaseWithoutPercentage(elapsedTime);
       }
+
+      // Draw the background before to the path before any transformation
+      canvas.drawPath(pathData.path, backgroundFillPaint);
       clippingTransform.transform(canvas, fillPhase, this);
       canvas.drawPath(pathData.path, fillPaint);
     }

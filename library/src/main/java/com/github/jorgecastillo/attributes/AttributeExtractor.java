@@ -29,6 +29,8 @@ public interface AttributeExtractor {
 
   int getFillColor();
 
+  int getBackgroundFillColor();
+
   int getStrokeWidth();
 
   int getOriginalWidth();

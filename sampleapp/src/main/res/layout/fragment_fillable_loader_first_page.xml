@@ -15,6 +15,7 @@
       app:fl_originalWidth="1079"
       app:fl_originalHeight="540"
       app:fl_clippingTransform="plain"
+      app:fl_backgroundFillColor="#FF0000"
       android:layout_gravity="center"
       />
 

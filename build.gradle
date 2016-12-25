@@ -17,18 +17,18 @@ allprojects {
 
     ext {
         // Android config
-        androidCompileSdkVersion = 22
-        androidBuildToolsVersion = "22.0.1"
+        androidCompileSdkVersion = 25
+        androidBuildToolsVersion = "25.0.0"
         androidMinSdkVersion = 11
-        androidTargetSdkVersion = 22
+        androidTargetSdkVersion = 25
         androidApplicationId = 'com.github.jorgecastillo'
         androidVersionCode = 4
         androidVersionName = '1.03'
 
         // Libraries
-        libAppCompat = 'com.android.support:appcompat-v7:22.2.0'
-        libSupport = 'com.android.support:support-v4:22.2.0'
-        libSupportDesign = 'com.android.support:design:22.2.1'
+        libAppCompat = 'com.android.support:appcompat-v7:25.0.1'
+        libSupport = 'com.android.support:support-v4:25.0.1'
+        libSupportDesign = 'com.android.support:design:25.0.1'
         libViewInjection = 'com.jakewharton:butterknife:7.0.1'
     }
 

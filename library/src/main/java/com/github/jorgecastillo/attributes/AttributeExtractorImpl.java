@@ -68,6 +68,12 @@ public class AttributeExtractorImpl implements AttributeExtractor {
         context().getResources().getColor(R.color.fillColor));
   }
 
+  @Override
+  public int getBackgroundFillColor() {
+    return attributeArray().getColor(R.styleable.FillableLoader_fl_backgroundFillColor,
+            context().getResources().getColor(R.color.backgroundFillColor));
+  }
+
   @Override public int getStrokeWidth() {
     return attributeArray().getDimensionPixelSize(R.styleable.FillableLoader_fl_strokeWidth, context().
         getResources().getDimensionPixelSize(R.dimen.strokeWidth));
